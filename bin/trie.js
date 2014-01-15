@@ -1,13 +1,13 @@
-var PTrie = function() {
-	this.root = new PTrieNode(false) ;
+var Trie = function() {
+	this.root = new TrieNode(false) ;
 } ;
 
-PTrie.prototype.insert = function(key, value) {
-	var node = new PTrieNode(value) ;
+Trie.prototype.insert = function(key, value) {
+	var node = new TrieNode(value) ;
 	this._insert(key.split(""), node, this.root) ;
 } ;
 
-PTrie.prototype._insert = function(chars, node, root) {
+Trie.prototype._insert = function(chars, node, root) {
 	var char = chars.shift() ;
 	if (root.children[char]) {
 		if(chars.length == 0) {
@@ -17,19 +17,19 @@ PTrie.prototype._insert = function(chars, node, root) {
 		}
 	} else {
 		if(chars.length > 0) {
-			root.children[char] = new PTrieNode(false) ;
+			root.children[char] = new TrieNode(false) ;
 			this._insert(chars, node, root.children[char]) ;
 		} else {
-			root.children[char] = new PTrieNode(node.value) ;
+			root.children[char] = new TrieNode(node.value) ;
 		}
 	}
 } ;
 
-PTrie.prototype.get = function(key, limit) {
+Trie.prototype.get = function(key, limit) {
 	return this._get(key.split(""), this.root, limit, key) ;
 } ;
 
-PTrie.prototype._get = function(chars, root, limit, key) {
+Trie.prototype._get = function(chars, root, limit, key) {
 	var char = chars.shift() ;
 	while (char) {
 		if(chars.length > 0) {
@@ -49,7 +49,7 @@ PTrie.prototype._get = function(chars, root, limit, key) {
 	}
 } ;
 
-PTrie.prototype._getAllChildren = function(root, key, limit, found) {
+Trie.prototype._getAllChildren = function(root, key, limit, found) {
 	var acc = [] ;
 	
 	if(root.isReal) {
@@ -72,13 +72,13 @@ PTrie.prototype._getAllChildren = function(root, key, limit, found) {
 
 
 
-var PTrieNode = function(value) {
+var TrieNode = function(value) {
 	this.value = value ;
 	this.isReal = false !== value ;
 	this.children = {} ;
 } ;
 
-PTrieNode.prototype.setValue = function(value) {
+TrieNode.prototype.setValue = function(value) {
 	if(value === false) {
 		return ;
 	}
@@ -88,4 +88,4 @@ PTrieNode.prototype.setValue = function(value) {
 
 
 
-module.exports = PTrie ;
+module.exports = Trie ;
