@@ -30,22 +30,22 @@ Trie.prototype.get = function(key, limit) {
 } ;
 
 Trie.prototype._get = function(chars, root, limit, key) {
-	var char = chars.shift() ;
-	while (char) {
+	var chr = chars.shift() ;
+	while (chr) {
 		if(chars.length > 0) {
-			if(root.children[char]) {
-				root = root.children[char] ;
+			if(root.children[chr]) {
+				root = root.children[chr] ;
 			} else {
 				return null ;
 			}
 		} else {
-			if(root.children[char]) {
-				return this._getAllChildren(root.children[char], key, limit, 0)
+			if(root.children[chr]) {
+				return this._getAllChildren(root.children[chr], key, limit, 0)
 			} else {
 				return null ;
 			}
 		}
-		char = chars.shift() ;
+		chr = chars.shift() ;
 	}
 } ;
 
